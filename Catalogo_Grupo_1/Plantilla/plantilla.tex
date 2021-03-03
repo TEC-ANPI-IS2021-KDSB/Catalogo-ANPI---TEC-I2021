@@ -1,0 +1,81 @@
+\documentclass[10pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,multicol,enumerate}
+\usepackage{amsfonts}
+\usepackage{multicol}
+
+\usepackage{wrapfig}
+
+
+%%%%% Formato REVISTA DE MATEMÁTICA: TEORÍA Y APLICACIONES%%%%%%%
+\topmargin=-2cm\textheight=23cm\textwidth=19cm
+\oddsidemargin=-1cm\evensidemargin=-1cm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\parskip=0.25cm
+\parindent=0mm
+
+\renewcommand{\figurename}{Figura}
+
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+
+%Utilizamos el paquete para incorporar graficos postcript
+
+
+%\usepackage{amssymb}
+\usepackage[psamsfonts]{amssymb} %paquetes para los simbolos matematicos
+\usepackage{latexsym}
+
+\usepackage{color}
+
+\usepackage[framed]{matlab-prettifier}
+
+
+\usepackage[T1]{fontenc}
+
+\renewcommand{\lstlistingname}{C\'odigo}
+
+
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.8,0.6}
+\definecolor{myorange}{rgb}{1.0,0.4,0}
+
+
+
+%%%%% Para Insertar Lenguaje M (MATLAB/GNU OCTAVE)
+
+
+
+\begin{document}
+
+%Encabezado
+Instituto Tecnológico de Costa Rica \hfill CE-3102: Análisis Numéricos para Ingeniería\\
+Ingeniería en Computadores \hfill Semestre: I - 2021\\
+
+
+
+
+\begin{center}\textbf{\huge Catálogo Grupal de Algoritmos}  \end{center}
+
+{\bf Integrantes: }
+\begin{itemize}
+\item Juan Pablo Soto Quirós - Carnet 2021123456
+\item Lisbeth Lao Aguilar - Carnet 2021789045
+\end{itemize}
+
+\section{Tema 1: Nombre del Tema}
+
+\subsection{Método 1: Aproximación Numérica del Inverso Multiplicativo}
+
+\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily\normalsize, caption={Lenguaje M.}]{ejemplo_lenguaje_m.m}
+
+\newpage
+
+\lstinputlisting[language=Python, basicstyle=\ttfamily\normalsize,morekeywords={as,__init__,MyClass}, keywordstyle=\color{violet}\ttfamily, frame=single, commentstyle=\color{gray}\ttfamily, showstringspaces=false, caption={Lenguaje Python.}]{ejemplo_lenguaje_python.py}
+
+\newpage
+
+\lstinputlisting[basicstyle=\normalsize\ttfamily\color{black}, commentstyle=\color{mygray}, frame=single, numbersep=5pt, numberstyle=\tiny\color{mygray}, keywordstyle=\color{mygreen}, showspaces=false, showstringspaces=false, stringstyle=\color{myorange}, tabsize=2, language=C++, caption={Lenguaje C++.}]{ejemplo_lenguaje_cpp.cpp}
+
+
+\end{document}
