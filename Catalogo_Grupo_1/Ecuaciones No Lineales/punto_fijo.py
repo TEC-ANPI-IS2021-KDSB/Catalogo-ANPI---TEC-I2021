@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Funcion para calcular ceros de funcion con el Metodo del Punto Fijo
 # Entradas: 
-#       funcion : la funcion 
+#       funcion : la funcion en texto
 #       valorInicial : estimacion del cero
 #       iterMax : iteraciones maximas
 # Salidas:
