@@ -20,7 +20,20 @@ def punto_fijo(funcion, valorInicial, iterMax):
 
     # Se inicializan los valores de la iteración y el array de errores
     x_k = valorInicial
-    error= float('inf')
+    error_array= [float('inf')]
+
+    try:
+        #Se agrega el primer error
+        error_array=[funcion(x_k)]
+
+        # Se itera
+        for k in range(0, iterMax):
+
+            # Se calcula el valor de la siguiente aproximación
+            x_k = funcion(x_k)
+            error_array.append(funcion(x_k))
+    except:
+        pass
 
     #Se inicializan el plot
     fig, ax = plt.subplots()
@@ -29,29 +42,12 @@ def punto_fijo(funcion, valorInicial, iterMax):
     plt.xlabel("Iteraciones")
     plt.ylabel("Error")
 
-    try:
-        #Se agrega el primer error
-        error=funcion(x_k)
-        ax.scatter(1, error, s=6, c="red")
-        plt.pause(0.01)
-
-        # Se itera
-        for k in range(0, iterMax):
-
-            # Se calcula el valor de la siguiente aproximación
-            x_k = funcion(x_k)
-            error = funcion(x_k)
-
-            #Se actualiza el plot
-            ax.scatter(k+2, error, s=6, c="red")
-            plt.pause(0.01)
-
-        plt.show()
-    except:
-        pass
+    #Se actualiza el plot
+    ax.scatter(list(range(1,k+3)), error_array, s=6, c="red")        
+    plt.show()
 
     # Se retorna el cero y el error
-    return [x_k, error]
+    return [x_k, error_array[-1]]
 
 
 def prueba():
