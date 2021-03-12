@@ -1,37 +1,49 @@
 #include <cmath>
 #include <iostream>
+#include <ginac/ginac.h>
 using namespace std;
+using namespace GiNaC;
 
-double f(x){
-  return x;
+ex f(string funct, ex value){
+  symbol x;
+  symtab table;
+  table["x"] = x;
+  parser reader(table);
+  ex f = reader(funct);
+  return evalf(f.subs(x==value));
 }
 
-double * falsa_posicion(double startInt, double endInt, int maxIt){
-  double a = startInt;
-  double b = endInt;
-  double xk = a-((a-b)/(f(a)-f(b)))*f(a);
+ex * falsa_posicion(string funct,ex startInt, ex endInt, int maxIt){
+  ex a = startInt;
+  ex b = endInt;
+  ex xk = a-((a-b)/(f(funct, a)-f(funct, b)))*f(funct, a);
+  ex functXk;
   int i=0;
-  double r[2];
+  static ex r[2];
   while(i<maxIt){
-    if(f(a)*f(xk)<0){
-      xk = xk-f(xk)*(xk-a)/(f(xk)-f(a));
+    functXk = f(funct, xk);
+    if(f(funct, a)*functXk<0){
+      xk = xk-functXk*(xk-a)/(functXk-f(funct, a));
       // Para la siguiente iteracion
       b = xk;
-    }else if(f(xk)*f(b)<0){
-      xk = xk-f(xk)*(xk-b)/(f(xk)-f(b));
+    }else if(functXk*f(funct, b)<0){
+      xk = xk-functXk*(xk-b)/(functXk-f(funct, b));
       // Para la siguiente iteracion
       a = xk;
     }else{
-      cout << "No se puede resolver por falsa posicion" < endl;
+      cout << "No se puede resolver por falsa posicion" << endl;
       return 0;
     }
     i+=1;
   }
-  r[0] = xk;
-  r[1] = f(xk);
+  r[0] = evalf(xk);
+  r[1] = abs(f(funct, xk));
   return r;
 }
 
 int main(void){
-
+  ex *r;
+  r = falsa_posicion("cos(x)-x", 1/2, Pi/4, 4); 
+  cout << "Aproximacion: " << *r << endl;
+  cout << "Error: " << *(r+1) << endl;
 }
