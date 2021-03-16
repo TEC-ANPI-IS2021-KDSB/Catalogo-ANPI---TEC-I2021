@@ -8,7 +8,7 @@ function muller
    [rx,error]=mullerAux(f,x0,x1,x2,tol,iterMax)
 end
 
-function[x,error]=mullerAux(f,x0,x1,x2,tol,iterMax)
+function[rx,error]=mullerAux(f,x0,x1,x2,tol,iterMax)
   pkg load symbolic
   syms x;
   f1=sym(f);
@@ -42,4 +42,5 @@ function[x,error]=mullerAux(f,x0,x1,x2,tol,iterMax)
   display(["Aproximacion: ",num2str(rx)]);
   display(["Iteraciones:",num2str(i)]);
   display(["Error relativo Normalizado:",num2str(error)]);
+
 end
