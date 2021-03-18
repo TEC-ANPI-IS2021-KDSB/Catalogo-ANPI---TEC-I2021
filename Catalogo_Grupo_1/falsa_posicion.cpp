@@ -6,6 +6,10 @@ using namespace std;
 using namespace GiNaC;
 namespace plt = matplotlibcpp;
 
+/** Metodo encargado de evaluar una funcion representada en string en un valor especifico utilizando la libreria GiNaC
+* @param funct La funcion que se quiere evaluar en formato de string
+* @param value El valor en el cual se va a evaluar la funcion
+*/
 ex f(string funct, ex value){
   symbol x;
   symtab table;
@@ -15,6 +19,13 @@ ex f(string funct, ex value){
   return evalf(f.subs(x==value));
 }
 
+/** Metodo encargado de calcular una solucion aproximada a una funcion utilizando el metodo de falsa posicion
+* @param funct String de la funcion a la cual se le va a calcular el cero aproximado
+* @param startInt El inicio del intervalo
+* @param endInt El final del intervalo
+* @param maxIt Las iteraciones maximas que va a realizar la funcion
+* @param tol La tolerancia maxima permitida
+*/
 ex * falsa_posicion(string funct,ex startInt, ex endInt, int maxIt, ex tol){
   ex a = startInt;
   ex b = endInt;

@@ -8,6 +8,10 @@ using namespace GiNaC;
 using namespace cln;
 namespace plt = matplotlibcpp;
 
+/** Metodo que realiza la evaluacion de una funcion en un valor especifico dado utilizando la libreria GiNaC
+* @param funct La funcion a evaluar en formato de string
+* @param value El valor en el cual se va a evaluar la funcion
+*/
 ex f(string funct, ex value){
   symbol x;
   symtab table;
@@ -17,7 +21,7 @@ ex f(string funct, ex value){
   return evalf(f.subs(x==value));
 }
 
-/**
+/** Funcion que calcula la aproximacion de un cero de una funcion dada mediante el metodo de secante
 * @param x0 First initial value
 * @param x1 Second initial value
 * @param maxIt Max Iterations for the function
