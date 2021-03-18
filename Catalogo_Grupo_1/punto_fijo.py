@@ -1,6 +1,8 @@
 import sympy as S
 import matplotlib.pyplot as plt
 
+# Utiliza las librerías sympy y matplotlib
+
 
 # Funcion para calcular ceros de funcion con el Metodo del Punto Fijo
 # Entradas: 
@@ -50,11 +52,9 @@ def punto_fijo(funcion, valorInicial, iterMax):
     return [x_k, error_array[-1]]
 
 
+# Ejemplo Numerico
 def prueba():
-    [x_k, error] = punto_fijo("sin(x)", 2, 50)
+    [x_k, error] = punto_fijo("sin(x)", 2, 1000)
     print("Error: " + str(error) + " |  Cero: " + str(x_k))
 
-def __main__():
-    prueba()
-
-__main__()
+prueba()
