@@ -1,104 +1,130 @@
 import numpy as np
-from sympy import Symbol, Derivative, sympify, pprint
+from sympy import Symbol, Derivative, sympify, pprint, symbols
 from sympy.core.sympify import SympifyError
 from pylab import plot, show, xlabel, ylabel, title, figure
 
 #Definicion de la funcion
-def function(f, X):
-    x = Symbol('x')
-    y = Symbol('y')
+def function(f, var, X):
+    x = symbols(var)
+    dic = {}
 
-    xe = X[0]
-    ye = X[1]           
-    return f.subs({x:xe, y:ye})
+    for i in range(len(var)):
+        dic[var[i]] = X[i]
+
+    return f.subs(dic)
 
 #Gradiente de la funcion
-def gradiente(f, X):
-    x = Symbol('x')
-    y = Symbol('y')
-    xs = X[0]
-    ys = X[1]  
-    fx = Derivative(f, x).doit().subs({x:xs, y:ys})
-    fy = Derivative(f, y).doit().subs({x:xs, y:ys})
- 
-    value = np.array([[fx, fy]])
+def f1(f, var, X):
+    x = symbols(var)
+    dic = {}
+    f_der = np.zeros(len(var))
+
+    for i in range(len(var)):
+        dic[var[i]] = X[i] 
+
+    for i in range(len(var)):
+        f_der[i] = Derivative(f, x[i]).doit().subs(dic)
+    
+    value = np.zeros((1, len(var)))
+    for i in range(len(var)):
+        value[0][i] = f_der[i]
+
+
     return value
 
-# Funcion principal
-# Aproxima un minimo mediante el metodo de gradiente conjugado no lineal 
-def gcnl(f, Xo, tol, max_it):
+#Funcion principal
+def gradiente(f, var, Xo, tol, max_it):
 
-    #f es la funcion definida (Definida como una funcion con nombre f)
-    #df es el gradiente de la función definida (Definida como una funcion con nombre df)
-    #Xo es es array con las coordenadas del primer valor para el metodo iterativo
-    #tol es la tolerancia permitida en el error de aproximacion
-    #max_it es el maximo numero de iteraciones permitidas 
+    #LEER
 
+    # f es la funcion definida (Definida como una funcion con nombre f), y debe ingresarse como un string
+
+    # var son las variables independientes de la funcion f, y debe ingresarse como un string, 
+    # con espacios de separacion entre las variables. 
+    #       Ej: En caso de una funcion con tres variables: 'x y z'
+    #       Ej: En caso de una funcion con dos variables: 'x y'
+    #       Ej: En caso de una funcion con una variables: 'x'
     
-    x = Symbol('x')
-    y = Symbol('y')
+    # Xo es un numpy array con las coordenadas del primer valor para el metodo iterativo, 
+    # y debe ingresarse de la siguiente forma: 
+    #       En caso de una funcion con tres variables: np.array([[Xinicial],[Yinicial],[Zinicial]])
+    #       En caso de una funcion con dos variables: np.array([[Xinicial],[Yinicial])
+    #       En caso de una funcion con una variable: np.array([[Xinicial])
+    
+    # tol es la tolerancia permitida en el error de aproximacion, 
+    # y puede ingresarse en forma de notacion cientifica: 1e-3, o en notacion natural: 0.001
+   
+    #max_it es el maximo numero de iteraciones permitidas, debe ingresarse un numero entero: 10
+
+    var = var.split()
+    var = tuple(var)
+    x = symbols(var)
 
     try:
         f = sympify(f)
     except SympifyError:
-        print('Entrada inválida')
+        print('Función ingresada invalida')
     
 
-    Xn = np.zeros((n, 2))           #
-    g = np.zeros((n, 2))            #Array de coordenadas que se calcularán
-    d = np.zeros((n, 2))            #Array de las direcciones que se calcularán
-    error = np.zeros(n)             #Array de error calculado
-    betak = 0                       #Parámetros de actualización Beta_k
+    Xn = np.zeros((max_it, len(var)))           #Array de coordenadas que se calcularán
+    g = np.zeros((max_it, len(var)))            #Array de gradiente que se calcularán
+    d = np.zeros((max_it, len(var)))            #Array de las direcciones que se calcularán
+    error = np.zeros(max_it)                    #Array de error calculado
+    betak = 0                                   #Actualiza el parametro Beta_k
 
-    Xn[0][0] = Xo[0][0]
-    Xn[0][1] = Xo[1][0]
+    for i in range(len(var)):
+        Xn[0][i] = float(Xo[i])
 
-    g[0] = gradiente(f, Xn[0])             #Cálculo de g_0
-    d[0] = -g[0]                    #Cálculo de d_0
+    g[0] = f1(f, var, Xn[0])                    #Calculo de g_0
+    d[0] = -g[0]                                #Calculo de d_0
 
-    delta = 0.5                     #Valor delta asumido
-    contador = 0                    #Variable que contiene el número de iteraciones realizadas
+    delta = 0.5                                 #Valor delta asumido
+    contador = 0                                #Variable que contiene el número de iteraciones realizadas
 
-    for i in range(n - 1):
-        alpha = 1                   #Valor inicial de alpha
+    for i in range(max_it - 1):
+        alpha = 1                               #Valor inicial de alpha
 
-        #Este bucle busca un valor de alpha que satisface la condición f(x_k + alpha*d_k) + alpha*d_k <= delta*alpha*g_k^T*d_k
-        while (function(f, Xn[i] + alpha*d[i]) - function(f, Xn[i]) > delta*alpha*np.matmul(g[i].transpose(), d[i])):
+        #Este loop busca un valor de alpha que satisface la condición f(x_k + alpha*d_k) + alpha*d_k <= delta*alpha*g_k^T*d_k
+        while (function(f, var, Xn[i] + alpha*d[i]) - function(f, var, Xn[i]) > delta*alpha*np.matmul(g[i].transpose(), d[i])):
             alpha *= 1/2
 
         Xn[i + 1] = Xn[i] + d[i]*alpha                  #Se calcula un nuevo conjunto de coordenadas
         error[i] = np.linalg.norm(Xn[i + 1] - Xn[i])    #Se calcula el error entre Xk y Xk+1
         contador += 1
 
-        if error[i] <= tol:             #Este bloque lógico comprueba si el error está por debajo de la tolerancia
-            break                       #Si es verdadero, entonces el programa sale del bucle for
-        else:                           #Si la condición anterior no es true, se ejecutará el siguiente bloque
-            g[i+1] = gradiente(f, Xn[i + 1])  
+        if error[i] <= tol:                             #Este bloque lógico comprueba si el error está por debajo de la tolerancia
+            break                                       #Si es verdadero, entonces el programa sale del bucle for
+        else:                                           #Si la condición anterior no es true, se ejecutará el siguiente bloque
+            g[i+1] = f1(f, var, Xn[i + 1])  
             betak = (np.linalg.norm(g[i + 1]))**2/((np.linalg.norm(g[i]))**2)   #betak calculado con el modelo Fletche y Reeves
             d[i+1] = -g[i + 1] + betak*d[i]
     
 
-    fig = figure()
+    print('Solución aproximada:')
+    for i in range(len(var)):
+        print(' {} = {}'.format(var[i], Xn[contador][i]))
+    print('\nError calculado = ', error[contador - 1])
+
+    figure(1)
     plot(list(range(1, contador + 1)), error[:contador], marker = ".")
     xlabel('#Iteraciones')
     ylabel('Error')
     title('Error de aproximacion en cada iteracion')
 
-    print('Aproximacion (x, y) = ({}, {})'.format(Xn[contador][0], Xn[contador][1]))
-    print('Error calculado Err = ', error[contador - 1])
+    show()
+    
+    # Descomentar la linea de abajo en caso de necesitar usar los resultados en otra programa
+    # y realizar la llamada así:
+    # Resultado, Error = gradiente(f, var, Xo, tol, max_it)
 
-    return Xn[contador], fig, error[contador - 1]
+    # return Xn[contador], error[contador - 1]
 
+#Llamando a la funcion
+gradiente('(x-2)**2+(y+3)**2+(x+y+z)**2', 'x y z', np.array([[0], [3], [2]]), 0.00001, 50)
 
+#Ejemplos de llamada a la funcion:
 
-f = input('Introduzca la funcion: ')
-n = int(input('Introduzca la cantidad máxima de iteraciones: '))                #Numero maximo de iteraciones
-xo = float(input('Introduzca la coordenada x del valor inicial: '))
-yo = float(input('Introduzca la coordenada y del valor inicial: '))
-tolerancia = float(input('Introduzca la tolerancia permitida: '))          #Tolerancia permitida
-Xo = np.array([[xo], [yo]])                                           #Coordenadas iniciales
-
-
-Xn, figura, error = gcnl(f, Xo, tolerancia, n)                        #Llama a la función
-show()
+#gradiente('sin(x)', 'x', np.array([[0]]), 0.00001, 50)
+#gradiente('sin(x)', 'x y', np.array([[0], [0]]), 0.00001, 50)
+#gradiente('(x-2)**4+(x-2*y)**2', 'x y', np.array([[0], [3]]), 0.00001, 50) 
 
