@@ -103,6 +103,7 @@ def gradiente(f, var, Xo, tol, max_it):
     print('Solución aproximada:')
     for i in range(len(var)):
         print(' {} = {}'.format(var[i], Xn[contador][i]))
+    print('El valor de la función evaluada en el punto es: {}'.format(function(f, var, Xn[contador])))
     print('\nError calculado = ', error[contador - 1])
 
     figure(1)
