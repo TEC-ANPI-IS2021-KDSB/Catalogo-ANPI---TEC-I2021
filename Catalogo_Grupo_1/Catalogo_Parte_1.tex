@@ -1,0 +1,107 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,multicol,enumerate}
+\usepackage{amsfonts}
+\usepackage{multicol}
+
+\usepackage{wrapfig}
+
+
+%%%%% Formato REVISTA DE MATEMÁTICA: TEORÍA Y APLICACIONES%%%%%%%
+\topmargin=-2cm\textheight=23cm\textwidth=19cm
+\oddsidemargin=-1cm\evensidemargin=-1cm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\parskip=0.25cm
+\parindent=0mm
+
+\renewcommand{\figurename}{Figura}
+
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+
+%Utilizamos el paquete para incorporar graficos postcript
+
+
+%\usepackage{amssymb}
+\usepackage[psamsfonts]{amssymb} %paquetes para los simbolos matematicos
+\usepackage{latexsym}
+
+\usepackage{color}
+
+\usepackage[framed]{matlab-prettifier}
+
+
+\usepackage[T1]{fontenc}
+
+\renewcommand{\lstlistingname}{C\'odigo}
+
+
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.8,0.6}
+\definecolor{myorange}{rgb}{1.0,0.4,0}
+
+
+
+%%%%% Para Insertar Lenguaje M (MATLAB/GNU OCTAVE)
+
+
+
+\begin{document}
+
+%Encabezado
+Instituto Tecnológico de Costa Rica \hfill
+CE-3102: Análisis Numéricos para Ingeniería\\
+Ingeniería en Computadores \hfill 
+Semestre: I - 2021\\
+
+
+
+
+\begin{center}\textbf{\huge Catálogo Grupal de Algoritmos}  \end{center}
+
+{\bf Integrantes: }
+\begin{itemize}
+\item Brayan Alfaro González - Carné 2019380074
+\item Sebastián Alba Vives - Carné 2017097108 
+\item Kevin Zeledón Salazar - Carné 2018076244 
+\item Daniel Camacho González - Carné 2017114058
+\end{itemize}
+
+
+\section{Tema 1: Métodos para encontrar raíces en ecuaciones no lineales}
+
+\subsection{Método de la Bisección}
+
+\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily\normalsize, caption={Método de la Bisección en Lenguaje M}]{biseccion.m}
+
+\newpage
+
+\subsection{Método de Newton Raphson}
+
+\lstinputlisting[language=Python, basicstyle=\ttfamily\normalsize,morekeywords={as,__init__,MyClass}, keywordstyle=\color{violet}\ttfamily, frame=single, commentstyle=\color{gray}\ttfamily, showstringspaces=false, caption={Método de Newton Raphson en Python}, breaklines]{newton_raphson.py}
+
+\newpage
+
+\subsection{Método de la Secante}
+
+\lstinputlisting[basicstyle=\normalsize\ttfamily\color{black}, commentstyle=\color{mygray}, frame=single, numbersep=5pt, numberstyle=\tiny\color{mygray}, keywordstyle=\color{mygreen}, showspaces=false, showstringspaces=false, stringstyle=\color{myorange}, tabsize=2, language=C++, caption={Método de la Secante en C++}, breaklines]{secante.cpp}
+
+\newpage
+
+\subsection{Método de la Falsa Posición}
+
+\lstinputlisting[basicstyle=\normalsize\ttfamily\color{black}, commentstyle=\color{mygray}, frame=single, numbersep=5pt, numberstyle=\tiny\color{mygray}, keywordstyle=\color{mygreen}, showspaces=false, showstringspaces=false, stringstyle=\color{myorange}, tabsize=2, language=C++, caption={Método de la Falsa Posición en C++}, breaklines]{falsa_posicion.cpp}
+
+\newpage
+
+\subsection{Método del Punto Fijo}
+
+\lstinputlisting[language=Python, basicstyle=\ttfamily\normalsize,morekeywords={as,__init__,MyClass}, keywordstyle=\color{violet}\ttfamily, frame=single, commentstyle=\color{gray}\ttfamily, showstringspaces=false, caption={Método del Punto Fijo en Python}]{punto_fijo.py}
+
+\newpage
+
+\subsection{Método de Muller}
+
+\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily\normalsize, caption={Método de Muller en Lenguaje M}]{muller.m}
+
+\end{document}

@@ -8,11 +8,9 @@ from math import * #Libreria matematica
 #ValorInicial:es el valor inicial de la aproximacion
 #tolerancia:tolerancia que se definira para la aproximacion
 
-############################################################################################################################################
 #Funcion principal
 def newton_raphson(funcion,ValorInicial,tolerancia):
     newton_raphson_secundaria(funcion,ValorInicial,tolerancia,[]) #Se crea un vector para guardar los valores
-############################################################################################################################################
 #Funcion secundaria para el calculo
 def newton_raphson_secundaria(funcion,ValorInicial,tolerancia,Conjunto_Valores):
     Conjunto_Valores.append(abs(ValorInicial)) #Se añade  el valor absoluto del valor inicial al vector
@@ -39,12 +37,9 @@ def newton_raphson_secundaria(funcion,ValorInicial,tolerancia,Conjunto_Valores):
     else:
         newton_raphson(funcion,Ultimo_Valor,tolerancia) 
 
-############################################################################################################################################
 #Modulo de evaluacion        
 def EvaluacionGlobal(funcion,x):#Recibe la funcion y un valor
     return eval(funcion) #se analiza la expresion de la funcion
-
-############################################################################################################################################
 #Modulo de evaluacion de derivada
 #En este modulo se evalua la derivada parseando la funcion
 def Evaluacion_De_Derivada(funcion,x): #Recibe la funcion y un valor
