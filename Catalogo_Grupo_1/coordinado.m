@@ -12,9 +12,10 @@ warning('off','all');
 %            tol : tolerancia para la norma del gradiente de la funcion en la aproximacion
 % Salidas : 
 %            aproximacion : aproximacion al minimo de f
+%            args : argumentos que minimizan f
 %            error : norma del gradiente de la funcion en la aproximacion
 
-function [aproximacion, error] = coordinado (f, var, x_0, iterMax, tol)
+function [aproximacion, args, error] = descenso_coordinado (f, var, x_0, iterMax, tol)
   x_var = read_var (var); % Se convierten las variables en simbolico
   x_k = x_0;  % Array de aproximaciones en los parametros
   fs = sym(f); % Convierte el texto a simbolico
@@ -39,10 +40,11 @@ function [aproximacion, error] = coordinado (f, var, x_0, iterMax, tol)
   plot(1:k,error,'--o')
   xlabel('Cantidad Iteraciones')
   ylabel('Error')
-  title('Gr�fico Iteraciones vs Errores')
+  title('Grafico Iteraciones vs Error')
   
   aproximacion = double(subs(fs, x_var, x_k)); 
-  error= norm_grad;
+  args = x_k;
+  error = norm_grad;
 endfunction
 
 % Funcion auxiliar para convertir el texto de las variables en symbolicos
@@ -59,4 +61,4 @@ function var_vector = read_var (var)
 endfunction
 
 %Ejemplo Numerico
-[aproximacion error] = coordinado("(x-2)^2+(y+3)^2+(x+y+z)^2", 'x y z', [1 1 1], 15, 1e-3)
+[aproximacion argumentos error] = descenso_coordinado("(x-2)^2+(y+3)^2+(x+y+z)^2", 'x y z', [1 1 1], 15, 1e-3)
