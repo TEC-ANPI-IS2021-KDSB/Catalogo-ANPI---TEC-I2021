@@ -1,0 +1,87 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,multicol,enumerate}
+\usepackage{amsfonts}
+\usepackage{multicol}
+
+\usepackage{wrapfig}
+
+
+%%%%% Formato REVISTA DE MATEMÁTICA: TEORÍA Y APLICACIONES%%%%%%%
+\topmargin=-2cm\textheight=23cm\textwidth=19cm
+\oddsidemargin=-1cm\evensidemargin=-1cm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\parskip=0.25cm
+\parindent=0mm
+
+\renewcommand{\figurename}{Figura}
+
+\usepackage[dvips]{graphicx}
+\usepackage{url}
+
+%Utilizamos el paquete para incorporar graficos postcript
+
+
+%\usepackage{amssymb}
+\usepackage[psamsfonts]{amssymb} %paquetes para los simbolos matematicos
+\usepackage{latexsym}
+
+\usepackage{color}
+
+\usepackage[framed]{matlab-prettifier}
+
+
+\usepackage[T1]{fontenc}
+
+\renewcommand{\lstlistingname}{C\'odigo}
+
+
+\definecolor{mygray}{rgb}{0.4,0.4,0.4}
+\definecolor{mygreen}{rgb}{0,0.8,0.6}
+\definecolor{myorange}{rgb}{1.0,0.4,0}
+
+
+
+%%%%% Para Insertar Lenguaje M (MATLAB/GNU OCTAVE)
+
+
+
+\begin{document}
+
+%Encabezado
+Instituto Tecnológico de Costa Rica \hfill
+CE-3102: Análisis Numéricos para Ingeniería\\
+Ingeniería en Computadores \hfill 
+Semestre: I - 2021\\
+
+
+
+
+\begin{center}\textbf{\huge Catálogo Grupal de Algoritmos}  \end{center}
+
+{\bf Integrantes: }
+\begin{itemize}
+\item Brayan Alfaro González - Carné 2019380074
+\item Sebastián Alba Vives - Carné 2017097108 
+\item Kevin Zeledón Salazar - Carné 2018076244 
+\item Daniel Camacho González - Carné 2017114058
+\end{itemize}
+
+
+\section{Tema 2: Optimización Numérica
+de Funciones en Varias Variables}
+
+\subsection{Método de Descenso Coordinado}
+
+\lstinputlisting[style=Matlab-editor, basicstyle=\mlttfamily\normalsize, caption={Método de Descenso Coordinado en Lenguaje M}]{coordinado.m}
+
+\newpage
+
+\subsection{Método de Gradiente Conjugado No Lineal}
+
+\lstinputlisting[language=Python, basicstyle=\ttfamily\normalsize,morekeywords={as,__init__,MyClass}, keywordstyle=\color{violet}\ttfamily, frame=single, commentstyle=\color{gray}\ttfamily, showstringspaces=false, caption={Método de Gradiente Conjugado No Lineal en Python}, breaklines]{gradiente.py}
+
+\newpage
+
+
+\end{document}
