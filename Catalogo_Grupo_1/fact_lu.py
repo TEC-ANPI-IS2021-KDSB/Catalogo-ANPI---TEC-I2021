@@ -100,6 +100,7 @@ def det(A):
     if b == 1:
         determinante = A[0,0] 
     else:
+        # Se calcula el determinante de manera recursiva
         for i in range(b):
             determinante += sign*A[0, i]*det(np.concatenate((A[1:a,0:i], A[1:a,i+1:b]), axis=1))
             sign = -1*sign
