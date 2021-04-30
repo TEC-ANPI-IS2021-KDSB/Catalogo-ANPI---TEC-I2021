@@ -13,8 +13,7 @@ Mat<double> pseudoinversa(Mat<double> A, Mat<double> B, int iterMax, double tol)
   
   Mat<double> X, Xo, Xkm1;
   X = (1/alpha)*trans(A);
-  Mat <double> I(n,m);
-  I.ones();
+  Mat <double> I(n,m, fill::eye);
 
   cout << I << endl;
 
@@ -35,9 +34,9 @@ Mat<double> pseudoinversa(Mat<double> A, Mat<double> B, int iterMax, double tol)
 }
 
 int main(void){
-  Digits = 10;
   Mat<double> A = {{1,2,4},{2,-1,1},{1,0,1}};
-  Mat<double> B = {4,3,9}; 
-  cout << pseudoinversa(A,B,10, 0.0000000001) <<endl;;
+  Mat<double> B = {4,3,9};
+  cout << pseudoinversa(A,B,200, 0.0000000001)<<endl;;
+
   return 0;
 }
