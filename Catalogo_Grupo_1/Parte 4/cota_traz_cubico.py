@@ -18,7 +18,7 @@ def cota_traz_cubico(funcion, puntos):
     # Se crea una funcion de python del valor absoluto de f4 y se multiplica por -1
     f4_abs = S.lambdify(x, -abs(f4))
     # Se calcula el minimo de f4_abs, lo cual equivale al maximo de f4, en el intervalo de los puntos
-    f4_norm_inf = optimize.minimize_scalar(f4_abs, bounds=(puntos[0],puntos[len(puntos)-1]), method='bounded').x
+    f4_norm_inf = -optimize.minimize_scalar(f4_abs, bounds=(puntos[0],puntos[len(puntos)-1]), method='bounded').fun
     
     # Se convierten los puntos en un array de numpy
     puntos = np.array(puntos)
