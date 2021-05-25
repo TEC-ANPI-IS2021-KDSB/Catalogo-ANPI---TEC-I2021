@@ -13,36 +13,39 @@ from scipy import optimize
 #       integral: resultado de la integración
 #       error: cota de error de la aproximación
 def simpson_compuesto(funcion, n_puntos, intervalo):
-    # Se establece el simbolo x
-    x = S.symbols("x")
-    # Se lee la funcion y se deriva
-    funcion = S.sympify(funcion)
-    f4 = S.diff(funcion, x, 4)
-    # Se convierte a funcion de python
-    funcion = S.lambdify(x, funcion)
-    f4_abs = S.lambdify(x, -abs(f4))
+    try:
+        # Se establece el simbolo x
+        x = S.symbols("x")
+        # Se lee la funcion y se deriva
+        funcion = S.sympify(funcion)
+        f4 = S.diff(funcion, x, 4)
+        # Se convierte a funcion de python
+        funcion = S.lambdify(x, funcion)
+        f4_abs = S.lambdify(x, -abs(f4))
 
-    # Se establecen los valores iniciales
-    a = intervalo[0]
-    b = intervalo[1]
-    x = np.linspace(a, b, num=n_puntos)
-    h = x[1]-x[0]
-    suma_par = 0
-    suma_impar = 0
-    n = n_puntos-1
-    # Se calcula la integracion
-    for i in range(1,int(n/2)):
-        suma_par += funcion(x[2*i])
-    for i in range(1,int(n/2)+1):
-        suma_impar += funcion(x[2*i-1])
+        # Se establecen los valores iniciales
+        a = intervalo[0]
+        b = intervalo[1]
+        x = np.linspace(a, b, num=n_puntos)
+        h = x[1]-x[0]
+        suma_par = 0
+        suma_impar = 0
+        n = n_puntos-1
+        # Se calcula la integracion
+        for i in range(1,int(n/2)):
+            suma_par += funcion(x[2*i])
+        for i in range(1,int(n/2)+1):
+            suma_impar += funcion(x[2*i-1])
 
-    integral = (h/3)*(funcion(x[0]) + 2*suma_par + 4*suma_impar + funcion(x[n]))
-    
-    # Se calcula el maximo de la cuarta derivada de f en el intervalo
-    f4_abs_max = -optimize.minimize_scalar(f4_abs, bounds=(a, b), method='bounded').fun
-    # Se calcula el error
-    error = ((b-a)*h**4/180)*f4_abs_max
-    return (integral, error)
+        integral = (h/3)*(funcion(x[0]) + 2*suma_par + 4*suma_impar + funcion(x[n]))
+        
+        # Se calcula el maximo de la cuarta derivada de f en el intervalo
+        f4_abs_max = -optimize.minimize_scalar(f4_abs, bounds=(a, b), method='bounded').fun
+        # Se calcula el error
+        error = ((b-a)*h**4/180)*f4_abs_max
+        return (integral, error)
+    except:
+        return (0,float('inf'))
 
 # Ejemplo Numérico
 funcion = "ln(x)"
