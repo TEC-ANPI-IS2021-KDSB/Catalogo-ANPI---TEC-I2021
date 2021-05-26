@@ -1,10 +1,10 @@
 #include <cmath>
 #include <iostream>
 #include <ginac/ginac.h>
-#include "matplotlibcpp.h"
+//#include "matplotlibcpp.h"
 using namespace std;
 using namespace GiNaC;
-namespace plt = matplotlibcpp;
+//namespace plt = matplotlibcpp;
 
 /** Metodo encargado de evaluar una funcion representada en string en un valor especifico utilizando la libreria GiNaC
 * @param funct La funcion que se quiere evaluar en formato de string
@@ -54,8 +54,8 @@ ex * falsa_posicion(string funct,ex startInt, ex endInt, int maxIt, ex tol){
     graphY.push_back(ex_to<numeric>(abs(f(funct,xk))).to_double());
     i+=1;
   }
-  plt::plot(graphX, graphY);
-  plt::show();
+  //plt::plot(graphX, graphY);
+  //plt::show();
   r[0] = evalf(xk);
   r[1] = abs(f(funct, xk));
   return r;
