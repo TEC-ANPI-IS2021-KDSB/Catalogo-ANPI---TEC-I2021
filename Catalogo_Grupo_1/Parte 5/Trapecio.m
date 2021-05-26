@@ -1,3 +1,4 @@
+% Ejemplo numerico
 function trapecio
   pkg load symbolic;
   warning('off','all');
