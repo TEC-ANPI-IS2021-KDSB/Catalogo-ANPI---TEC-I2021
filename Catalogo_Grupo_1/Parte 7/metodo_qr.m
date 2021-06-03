@@ -18,7 +18,7 @@ function [valor, vector] = metodo_qr_f(A)
   U = eye(n);
   An = A;
   for i =1:100
-    [Q R] = qr(An);
+    [Q R] = fact_qr(An);
     An = R * Q;
     U = U*Q;   
     
@@ -48,5 +48,34 @@ function [valor, vector] = metodo_qr_f(A)
   
 endfunction
 
-# Funcion de prueba
+
+% Funcion que aproxima obtiene la factorizacion qr de una matriz A
+% Entradas : 
+%      A : matriz a factorizar
+% Salidas : 
+%      Q : matriz Q de la factorizacion
+%      R : matriz R de la factorizacion
+function [Q, R] = fact_qr(A)
+  [n, ~] = size(A);
+  u = zeros(n,n);
+  e = zeros(n,n);
+  # Se realiza el metodo iterativo
+  for k=1:n
+    u(:,k) = A(:,k);
+    for j=1:k-1
+      u(:,k)-=A(:,k)'*e(:,j)*e(:,j);
+    end
+    e(:,k) = u(:,k)/norm(u(:,k));
+  end
+  # Se componen las matrices Q y R
+  Q = e;
+  R = zeros(n,n); 
+  for k=1:n
+    for j=1:k
+      R(j,k) = A(:,k)'*e(:,j);
+    end
+  end
+endfunction
+
+# Ejemplo numerico
 [valores, vectores] = metodo_qr_f([0 11 -5; -2 17 -7; -4 26 -10])
