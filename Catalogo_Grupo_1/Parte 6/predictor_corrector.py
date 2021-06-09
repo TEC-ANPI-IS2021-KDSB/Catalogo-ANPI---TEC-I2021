@@ -21,7 +21,6 @@ def predictor_corrector(func,a,b,h,yo):
   f = S.lambdify([x,y],funcion)
 
   N = int((b-a)/h) + 1
-  print(N)
   yk = np.zeros(N)
   yk[0] = yo
   xk = np.zeros(N)
@@ -45,9 +44,8 @@ def predictor_corrector(func,a,b,h,yo):
   plt.show()
 
   a_s = divided_diff(xk,yk)[0,:]
-  print(a_s)
   x = S.symbols('x,y')
-  poly = print_poly(a_s,xk,N)
+  poly = S.simplify(S.sympify(print_poly(a_s,xk,N)))
 
   # Falta el polinomio de interpolacion
   return [xk,yk,poly]
@@ -97,7 +95,15 @@ def print_poly(Coef, x, n):
         #     p[j + 1] = p[j + 1] + '*(x-{})'.format(x[k])
         
         # contador += 1
-    pol = "p(x) = " + "+".join(p)
+    pol = "+".join(p)
     return pol
 
-print(predictor_corrector('y-x^2+1',0,2,(2/(11-1)),0.5))
+# Ejemplo Numerico 
+
+ejemplo = predictor_corrector('y-x^2+1',0,2,(2/(11-1)),0.5)
+x = ejemplo[0]
+y = ejemplo[1]
+pol = ejemplo[2]
+print("\nVector x: "+ str(x))
+print("\nVector y: "+ str(y))
+print("\nPolinomio: "+ str(pol))
