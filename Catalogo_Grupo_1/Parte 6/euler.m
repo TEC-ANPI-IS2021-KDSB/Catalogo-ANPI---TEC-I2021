@@ -9,7 +9,7 @@ function euler()
   y0=0.5;
   a=0;b=2;
   n=11;
-  [xv,yv,p]=metodo_euler(f,a,b,y0,n)
+  [xv,yv,p]=metodo_euler(f,a,b,y0,n);
   
   %Graficacion del polinomio de interpolacion y los puntos (xv,yv)
   stem(xv,yv,'LineStyle','none');
@@ -58,6 +58,14 @@ end
 
 
 %Funcion que implementa el metodo de las diferencias divididas de Newton para el calculo del polinomio de interpolacion formado por los puntos (xv,yv)
+%
+% Entradas : 
+%      f: Vector de valores en X
+%      y: Vector de valores en Y
+%      n: Numero de puntos con los que se quiere realizar la aproximacion
+% Salida : 
+%      p  : Polinomio de interpolacion  aproximado
+
 function p=ddnewton(xv,y)
   syms x;
   m=length(xv);
