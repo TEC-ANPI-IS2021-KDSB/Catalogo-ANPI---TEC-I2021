@@ -44,7 +44,9 @@ function  [x, y, polinomio] = runge_kutta_4_f(fun, a, b, y0, h)
   polinomioMatlab = matlabFunction(polinomio);
   
   # Se muestra el polinomio de interpolacion obtenido
-  fplot(polinomioMatlab, [a b]);
+  stem(x,y,'LineStyle','none');
+  hold on 
+  ezplot(polinomioMatlab,[a,b]);
   title(strcat('Solución de la ecuación diferencial dy/dx = ', fun, ' ; y(', mat2str(a),') = ', mat2str(y0)));
 endfunction
 

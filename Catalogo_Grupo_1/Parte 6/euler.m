@@ -9,7 +9,7 @@ function euler()
   y0=0.5;
   a=0;b=2;
   n=11;
-  [xv,yv,p]=metodo_euler(f,a,b,y0,n);
+  [xv,yv,p]=metodo_euler(f,a,b,y0,n)
   
   %Graficacion del polinomio de interpolacion y los puntos (xv,yv)
   stem(xv,yv,'LineStyle','none');
