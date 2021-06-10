@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sympy import Symbol, sympify, symbols
+from sympy import Symbol, sympify, symbols, simplify
 from sympy.core.sympify import SympifyError
 
 def divided_diff(x, y):
@@ -25,26 +25,30 @@ def divided_diff(x, y):
             
     return coef
 
+# Metodo que se encarga de imprimir el polinomio de interpolacion
+# a partir de la lista de coeficientes del mismo
+# Entradas: Coef: Coeficientes a_s del polinomio de interpolacion
+#           x: Vector de valores de x
+#           n: Longitud de x 
+# Salidas: polinomio de interpolación 
+
 def print_poly(Coef, x, n):
-
-    # Funcion que imprime en formato string el polinomio de interpolacion
-    # calculado por el metodo de Newton
-
-    # Coef: Vector de coeficientes del polinomio
-    # x: Vector de coordenadas x del dominio del polinomio
-    # n: numero de puntos utilizados para construir el polinomio de interpolacion
-
     p = []
 
     for i in range(n):
         p.append('{}'.format(Coef[i]))
-    contador = 0
-    for k in range(n):
-        for i in range(k, n-1):
-            p[i + 1] = p[i + 1] + '*(x-{})'.format(x[k])
-       
-    pol = "p(x) = " + "+".join(p)
+    contador = 1
+    for k in range(len(x)):
+        for i in range(k+contador, n):
+            p[i] = p[i] + '*(x-{})'.format(x[k])
+        
+        # for j in range(k+contador+1, n-1):
+        #     p[j + 1] = p[j + 1] + '*(x-{})'.format(x[k])
+        
+        # contador += 1
+    pol = "+".join(p)
     return pol
+
 
 def adam_bashford_4(f, interv, h, yo):
 
@@ -105,7 +109,7 @@ def adam_bashford_4(f, interv, h, yo):
     # # Invocando la funcion que calcula las diferencias finitas por el metodo de Newton
     a_s = divided_diff(xk, yk)[0, :]
 	# # Invocando la funcion que imprime el polinomio de interpolacion
-    poly = print_poly(a_s, xk, npasos)
+    poly = simplify(sympify(print_poly(a_s, xk, npasos)))
     return xk, yk, poly
 
 # Ejemplo numerico
@@ -116,4 +120,6 @@ y0 = 1
 Intervalo = [2,4]
 
 xn,yn,pol = adam_bashford_4(fxy, Intervalo, h, y0)
-print(pol)
+print("\nX: " +str(xn))
+print("\nY: "+str(yn))
+print("\nPolinomio: " + str(pol))
